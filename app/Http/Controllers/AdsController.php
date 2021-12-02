@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+namespace App\Models;
 
 use Illuminate\Http\Request;
 
@@ -13,7 +14,11 @@ class AdsController extends Controller
      */
     public function index()
     {
-        //
+        $ads = Ad::where('userID', Auth::user()->id)->get();
+
+        $users = User::all();
+
+        return view('ads/index', ['ads' => $ads]);
     }
 
     /**

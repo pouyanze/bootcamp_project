@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\Authenticate;
+use App\Http\Controllers\AdsController;
+use App\Http\Middleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +16,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->middleware('auth')->name('home');
+
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->middleware('auth')->name('home');
+
+Route::group(['prefix'=>'user', 'middleware' => 'auth'], function (){
+    Route::get('/ads', [App\Http\Controllers\AdsController::class, 'index']);
+    Route::get('/create', [App\Http\Controllers\AdsController::class, 'create']);
+    Route::get('/delete', [App\Http\Controllers\AdsController::class, 'delete']);
+});
