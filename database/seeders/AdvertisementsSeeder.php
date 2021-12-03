@@ -24,7 +24,7 @@ class AdvertisementsSeeder extends Seeder
         $userrrIDDD = DB::table('users')->pluck('id')->toArray();
         $category_IDDD = DB::table('categories')->pluck('id')->toArray();
 
-        for ($x = 0; $x <= 10; $x++) {
+        for ($x = 0; $x <= 3; $x++) {
         DB::table('advertisements')->insert([
             'id' => random_int(1,999),
             'title' => Str::random(10),
@@ -32,8 +32,8 @@ class AdvertisementsSeeder extends Seeder
             'price' => random_int(1000,9999),
             'address' => 'Country:Iran, City:' . Str::random(5),
             'phoneNumber' => random_int(9151111,9159999),
-            'userID' => array_rand($userrrIDDD),
-            'category_id' => array_rand($category_IDDD),
+            'userID' => array_pop($userrrIDDD),
+            'category_id' => array_pop($category_IDDD),
         ]);
         }
     }

@@ -20,7 +20,7 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
-        for ($x = 0; $x <= 10; $x++) {
+        for ($x = 0; $x <= 3; $x++) {
             DB::table('users')->insert([
                 'id' => random_int(1,999),
                 'name' => Str::random(10),
