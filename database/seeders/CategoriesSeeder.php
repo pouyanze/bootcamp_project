@@ -17,11 +17,11 @@ class CategoriesSeeder extends Seeder
      */
     public function run()
     {
-        for ($x = 0; $x <= 3; $x++) {
+        for ($x = 1; $x <= 3; $x++) {
             DB::table('categories')->insert([
-                'id' => random_int(1,999),
-                'name' => Str::random(10),
-                'nameEn' => 'EnglishVersionOfName: '.Str::random(10),
+                'id' => $x,
+                'name' => 'CategoryName: '.Str::random(2),
+                'nameEn' => 'CategoryEnName: '.Str::random(2),
                 'parentID' => random_int(1,999),
             ]);
           }
