@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\Authenticate;
-use App\Http\Controllers\AdsController;
+use App\Http\Controllers\AdvertisementsController;
 use App\Http\Middleware;
 
 /*
@@ -19,12 +19,19 @@ use App\Http\Middleware;
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->middleware('auth')->name('home');
+Route::get('/home', [App\Http\Controllers\AdvertisementsController::class, 'list'])->middleware('auth')->name('list');
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->middleware('auth')->name('home');
+Route::get('/', [App\Http\Controllers\AdvertisementsController::class, 'list'])->middleware('auth')->name('list');
 
-Route::group(['prefix'=>'user', 'middleware' => 'auth'], function (){
-    Route::get('/ads', [App\Http\Controllers\AdsController::class, 'index']);
-    Route::get('/create', [App\Http\Controllers\AdsController::class, 'create']);
-    Route::get('/delete', [App\Http\Controllers\AdsController::class, 'delete']);
+Route::group(['prefix'=>'ads', 'middleware' => 'auth'], function (){
+    Route::get('/list', [App\Http\Controllers\AdvertisementsController::class, 'list'])->name('list');
+    Route::get('/create', [App\Http\Controllers\AdvertisementsController::class, 'create'])->name('create');
+    Route::post('/store', [App\Http\Controllers\AdvertisementsController::class, 'store'])->name('store');
+    Route::get('/delete', [App\Http\Controllers\AdvertisementsController::class, 'delete'])->name('delete');
+    Route::post('/{id}/edit', [App\Http\Controllers\AdvertisementsController::class, 'edit']);
+    Route::post('/{id}/destroy', [App\Http\Controllers\AdvertisementsController::class, 'destroy']);
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
