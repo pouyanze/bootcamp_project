@@ -23,7 +23,7 @@ class UsersSeeder extends Seeder
         for ($x = 1; $x <= 3; $x++) {
             DB::table('users')->insert([
                 'id' => $x,
-                'name' => 'UserName'.Str::random(2),
+                'name' => 'نام کربری'.Str::random(2),
                 'email' => Str::random(1).'@'.Str::random(1).'.com',
                 'email_verified_at' => date("Y-m-d H:i:s"),
                 'password' => Hash::make('password'),

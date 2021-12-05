@@ -27,10 +27,10 @@ class AdvertisementsSeeder extends Seeder
         for ($x = 1; $x <= 3; $x++) {
         DB::table('advertisements')->insert([
             'id' => $x,
-            'title' => 'ADtitle: '.Str::random(2),
-            'description' => 'ADdesc: '.Str::random(10),
+            'title' => 'عنوان آگهی: '.Str::random(2),
+            'description' => 'توضیحات آگهی: '.Str::random(10),
             'price' => random_int(1000,9999),
-            'address' => 'Country:Iran, City: ' . Str::random(5),
+            'address' => 'شهر ، ایران :کشور: ' . Str::random(5),
             'phoneNumber' => random_int(9151111,9159999),
             'userID' => array_pop($userrrIDDD),
             'categoryID' => array_pop($category_IDDD),

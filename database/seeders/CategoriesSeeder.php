@@ -20,8 +20,8 @@ class CategoriesSeeder extends Seeder
         for ($x = 1; $x <= 3; $x++) {
             DB::table('categories')->insert([
                 'id' => $x,
-                'name' => 'CategoryName: '.Str::random(2),
-                'nameEn' => 'CategoryEnName: '.Str::random(2),
+                'name' => 'گروه بندی: '.Str::random(2),
+                'nameEn' => 'نام گروه بندی به انگلیسی: '.Str::random(2),
                 'parentID' => random_int(1,999),
             ]);
           }
