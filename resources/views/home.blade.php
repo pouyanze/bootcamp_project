@@ -15,6 +15,11 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+                    <hr>
+                    <a href="{{ route('list') }}">لیست آگهی ها</a>
+                    <hr>
+                    <a href="{{ route('create') }}">افزودن آگهی جدید</a>
+                    <hr>
                 </div>
             </div>
         </div>
