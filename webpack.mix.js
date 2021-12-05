@@ -12,10 +12,5 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .react()
     .sass('resources/sass/app.scss', 'public/css')
-    .styles(['resources/css/customs.css',],'public/dist/vendor.css',)
-    .scripts(['resources/js/input.js',],'public/dist/vendor.js')
-    .copy(['resources/assets/images/favicon.ico',],'public/images/',)
-    .version()
-    ;
+    .sourceMaps();
