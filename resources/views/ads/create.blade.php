@@ -5,19 +5,19 @@
     {{ csrf_field() }}
     <div class="mx-auto" style="width: 500px;">
         <label for="title" class="col-lg-12 col-form-label">عنوان آگهی</label>
-        <input type="text" name="title" class="blue form-control form-control-lg" id="title" placeholder="enter ad title here">
+        <input type="text" name="title" class="blue form-control form-control-lg" id="title" placeholder="عنوان آگهی را اینجا وارد کنید">
 
         <label for="description" class="col-lg-12 col-form-label">توضیحات آگهی</label>
-        <textarea name="description" class="form-control" id="description" rows="3" placeholder="enter ad description here"></textarea>
+        <textarea name="description" class="form-control" id="description" rows="3" placeholder="توضیحات آگهی را اینجا وارد کنید"></textarea>
 
         <label for="price" class="col-lg-12 col-form-label">قیمت آگهی</label>
-        <input type="number" name="price" class="blue form-control form-control-lg" id="price" placeholder="enter ad price here">
+        <input type="number" name="price" class="blue form-control form-control-lg" id="price" placeholder="قیمت آگهی را اینجا وارد کنید">
 
         <label for="address" class="col-lg-12 col-form-label">آدرس آگهی</label>
-        <input type="text" name="address" class="blue form-control form-control-lg" id="address" placeholder="enter ad address here">
+        <input type="text" name="address" class="blue form-control form-control-lg" id="address" placeholder="آدرس آگهی را اینجا وارد کنید">
 
         <label for="phoneNumber" class="col-lg-12 col-form-label">شماره تلفن آگهی</label>
-        <input type="number" name="phoneNumber" class="blue form-control form-control-lg" id="phoneNumber" placeholder="enter ad phoneNumber here">
+        <input type="number" name="phoneNumber" class="blue form-control form-control-lg" id="phoneNumber" placeholder="شماره تماس آگهی را اینجا وارد کنید">
 
         <select name="categoryID">
             @foreach ($categories as $category)
