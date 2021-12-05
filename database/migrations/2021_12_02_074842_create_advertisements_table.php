@@ -22,7 +22,7 @@ class CreateAdvertisementsTable extends Migration
             $table->longText('address');
             $table->integer('phoneNumber');
             $table->foreignId('userID')->constrained('users');;
-            $table->foreignId('category_id')->constrained('categories');
+            $table->foreignId('categoryID')->constrained('categories');
         });
     }
 
