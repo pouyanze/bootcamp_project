@@ -17,6 +17,15 @@ class AdvertisementsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    
+
+    public function AllAds()
+    {
+        $ads = Advertisement::all();
+
+        return view('/home', ['ads' => $ads]);
+    }
     public function list()
     {
         $ads = Advertisement::where('userID', Auth::user()->id)->get();

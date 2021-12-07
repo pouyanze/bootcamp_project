@@ -19,9 +19,9 @@ use App\Http\Middleware;
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\AdvertisementsController::class, 'list'])->middleware('auth')->name('list');
+Route::get('/home', [App\Http\Controllers\AdvertisementsController::class, 'AllAds'])->name('AllAds');
 
-Route::get('/', [App\Http\Controllers\AdvertisementsController::class, 'list'])->middleware('auth')->name('list');
+Route::get('/', [App\Http\Controllers\AdvertisementsController::class, 'AllAds'])->name('AllAds');
 
 Route::group(['prefix'=>'ads', 'middleware' => 'auth'], function (){
     Route::get('/list', [App\Http\Controllers\AdvertisementsController::class, 'list'])->name('list');
@@ -31,7 +31,3 @@ Route::group(['prefix'=>'ads', 'middleware' => 'auth'], function (){
     Route::post('/{id}/edit', [App\Http\Controllers\AdvertisementsController::class, 'edit']);
     Route::post('/{id}/destroy', [App\Http\Controllers\AdvertisementsController::class, 'destroy']);
 });
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
