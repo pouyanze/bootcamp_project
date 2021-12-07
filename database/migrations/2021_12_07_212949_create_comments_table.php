@@ -19,6 +19,7 @@ class CreateCommentsTable extends Migration
             $table->string('title');
             $table->longText('description');
             $table->foreignId('userID')->constrained('users');
+            $table->foreignId('adID')->constrained('advertisements');
         });
     }
 

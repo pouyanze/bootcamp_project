@@ -14,5 +14,6 @@ class Comment extends Model
         'title',
         'description',
         'userID',
+        'adID',
     ];
 }
