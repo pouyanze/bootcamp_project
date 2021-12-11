@@ -32,4 +32,16 @@
         <button class="my-3 container btn btn-danger" type="submit">ذخیره</button>
     </div>
 </form>
+
+
+@if($errors->any())
+<div class="alert alert-danger">
+<ol>
+@foreach($errors->all() as $item)
+{{$item}}
+@endforeach
+</ol>
+@endif
+
+
 @endsection
