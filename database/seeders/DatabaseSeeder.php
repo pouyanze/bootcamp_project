@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             UsersSeeder::class,
             CategoriesSeeder::class,
             AdvertisementsSeeder::class,
+            CommentSeeder::class,
         ]);
     }
 }

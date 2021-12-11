@@ -9,17 +9,20 @@
                     <h1>آگهی های من</h1>
                 </div>
                 <div class="card-body">
+
+                    @foreach ($ads as $ad)
+
                     <table class="table table-bordered table-hover">
                         <tr>
-                            <th scope="col">--آگهی--
+                            <th scope="col" class="col-6">--آگهی--
 
-                            <th scope="col"> ویرایش</th>
+                            <th scope="col" class="col-3"> ویرایش</th>
 
                             </th>
-                            <th scope="col">پاک کردن</th>
+                            <th scope="col" class="col-3">پاک کردن</th>
                         </tr>
 
-                        @foreach ($ads as $ad)
+
                         <tr>
                             <td class="align-middle">
                                 <form action="{{$ad->id}}/edit" method="post">
@@ -43,8 +46,36 @@
                             </td>
                         </tr>
 
+                        <!-- ---------------------------------------------------------------------- -->
+                        <table class="table table-bordered table-hover">
+                            <tr>
+                                <th>نظرات</th>
+                            </tr>
+                            @foreach ($comments as $comment)
+                            @if (($comment->adID)==($ad->id))
+                            <tr>
+                                <td>
+                                    <label for="comment">comment:</label>
+                                    <span id="comment">{{$comment->title}}</span>
+                                    <span id="comment">{{$comment->description}}</span>
+                                    <!-- <form action="{{$ad->id}}/edit/comment" method="post">
+                                        @csrf -->
+                                    <input type="text" name="newAdCommentTitle" value="{{$comment->title}}" class="form-control">
+                                    <input type="text" name="newAdCommentDescription" value="{{$comment->description}}" class="form-control">
+                                </td>
+                            </tr>
+                            @endif
+                            @endforeach
+                        </table>
+                        <!-- ---------------------------------------------------------------------------- -->
                         @endforeach
                     </table>
+
+
+
+
+
+
 
                     <a class=" font-weight-bold page-link justify-content-center border text-danger bg-dark h3" href='{{$url = route("create")}}'>آگهی جدید ایجاد کنید</a>
                 </div>

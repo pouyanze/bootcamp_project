@@ -9,6 +9,9 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Advertisement;
 use App\Models\Category;
+use App\Models\Comment;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\AdsValidationRequest;
 
 class AdvertisementsController extends Controller
 {
@@ -29,8 +32,17 @@ class AdvertisementsController extends Controller
     public function list()
     {
         $ads = Advertisement::where('userID', Auth::user()->id)->get();
+        $idsOfads=DB::table('advertisements')->where('userID', Auth::user()->id)->pluck('id')->toArray();
+        
+        // dd($idOfads);
 
-        return view('ads/list', ['ads' => $ads]);
+        $comments = Comment::whereIn('adID',$idsOfads)->get();
+
+        // dd($comments);
+
+        return view('ads/list')
+            ->with('ads', $ads)
+            ->with('comments', $comments);
     }
 
     /**
@@ -50,7 +62,7 @@ class AdvertisementsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AdsValidationRequest $request)
     {
         $ad = Advertisement::create([
             'title' => $request->input('title'),
