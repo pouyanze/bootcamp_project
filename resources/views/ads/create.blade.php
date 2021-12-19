@@ -19,6 +19,8 @@
         <label for="phoneNumber" class="col-lg-12 col-form-label">شماره تلفن آگهی</label>
         <input type="number" name="phoneNumber" class="blue form-control form-control-lg" id="phoneNumber" placeholder="شماره تماس آگهی را اینجا وارد کنید">
 
+        <hr>
+        <p>دسته بندی</p>
         <select name="categoryID">
             @foreach ($categories as $category)
             <option value="{{$category->id}}">
@@ -26,7 +28,7 @@
             </option>
             @endforeach
         </select>
-
+        <hr>
         <input type="hidden" name="userID" value="{{auth()->user()->id}}">
 
         <button class="my-3 container btn btn-danger" type="submit">ذخیره</button>
@@ -36,12 +38,12 @@
 
 @if($errors->any())
 <div class="alert alert-danger">
-<ol>
-@foreach($errors->all() as $item)
-{{$item}}
-@endforeach
-</ol>
-@endif
+    <ol>
+        @foreach($errors->all() as $item)
+        {{$item}}
+        @endforeach
+    </ol>
+    @endif
 
 
-@endsection
+    @endsection
