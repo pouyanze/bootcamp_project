@@ -2,7 +2,18 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Advertisement;
+use App\Models\Category;
+use App\Models\Comment;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\CommentsValidationRequest;
+use Illuminate\Support\Facades\Log;
+
 
 class CommentsController extends Controller
 {
@@ -34,7 +45,31 @@ class CommentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd("aaaa");
+        $ad = Comment::create([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'userID' => $request->input('userID'),
+            'adID' => $request->input('adID'),
+        ]);
+
+        Log::info('saving a comment for user: '. Auth::user()->id);
+
+        return redirect('ads/list');
+    }
+    public function store2(Request $request)
+    {
+        // dd("aaaa");
+        $ad = Comment::create([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'userID' => $request->input('userID'),
+            'adID' => $request->input('adID'),
+        ]);
+
+        Log::info('saving a comment for user: '. Auth::user()->id);
+
+        return redirect('/home');
     }
 
     /**
@@ -54,9 +89,13 @@ class CommentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        //
+        $comment = Comment::where('id', $id)->update([
+            'title' => $request->input('newAdCommentTitle'),
+            'description' => $request->input('newAdCommentDescription'),
+        ]);
+        return redirect('ads/list');
     }
 
     /**
