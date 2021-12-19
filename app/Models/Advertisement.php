@@ -24,4 +24,9 @@ class Advertisement extends Model
         'userID',
         'categoryID',
     ];
+    use HasFactory;
+    public function favourites()
+    {
+        return $this->hasMany(Favourite::class);
+    }
 }
