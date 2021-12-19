@@ -20,16 +20,32 @@ class CommentSeeder extends Seeder
      */
     public function run()
     {
-        $userrrIDDD = DB::table('users')->pluck('id')->toArray();
-        $adIDDD = DB::table('advertisements')->pluck('id')->toArray();
-        for ($x = 1; $x <= 3; $x++) {
+       
             DB::table('comments')->insert([
-                'id' => $x,
-                'title' => 'عنوان نظر: '.Str::random(2),
-                'description' => 'متن نظر: '.Str::random(10),
-                'userID' => array_pop($userrrIDDD),
-                'adID' => array_pop($adIDDD),
+               [ 'id' => 1,
+                'title' => 'c',
+                'description' => 'c',
+                'userID' => 1,
+                'adID' => 1],
+
+                [ 'id' => 2,
+                'title' => 'cc',
+                'description' => 'cc',
+                'userID' => 1,
+                'adID' => 2],
+
+                [ 'id' => 3,
+                'title' => 'ccc',
+                'description' => 'ccc',
+                'userID' => 2,
+                'adID' => 1],
+
+                [ 'id' => 4,
+                'title' => 'cccc',
+                'description' => 'cccc',
+                'userID' => 2,
+                'adID' => 2],
             ]);
-            }
+    
     }
 }

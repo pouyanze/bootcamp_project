@@ -20,14 +20,26 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
-        for ($x = 1; $x <= 3; $x++) {
+       
             DB::table('users')->insert([
-                'id' => $x,
-                'name' => 'نام کربری'.Str::random(2),
-                'email' => Str::random(1).'@'.Str::random(1).'.com',
+                ['id' => 1,
+                'name' => 'a',
+                'email' => 'a@a.com',
                 'email_verified_at' => date("Y-m-d H:i:s"),
-                'password' => Hash::make('password'),
+                'password' => 'aaaaaaaa'],
+
+                ['id' => 2,
+                'name' => 'b',
+                'email' => 'b@b.com',
+                'email_verified_at' => date("Y-m-d H:i:s"),
+                'password' => 'bbbbbbbb'],
+
+                ['id' => 3,
+                'name' => 'c',
+                'email' => 'c@c.com',
+                'email_verified_at' => date("Y-m-d H:i:s"),
+                'password' => 'cccccccc']
             ]);
-          }
+    
     }
 }

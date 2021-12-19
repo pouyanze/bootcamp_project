@@ -17,14 +17,20 @@ class CategoriesSeeder extends Seeder
      */
     public function run()
     {
-        for ($x = 1; $x <= 3; $x++) {
+        
             DB::table('categories')->insert([
-                'id' => $x,
-                'name' => 'گروه بندی: '.Str::random(2),
-                'nameEn' => 'نام گروه بندی به انگلیسی: '.Str::random(2),
-                'parentID' => random_int(1,999),
+                ['id' => 1,
+                'name' => 'x',
+                'nameEn' => 'x',
+                'parentID' => 1],
+                
+                ['id' => 2,
+                'name' => 'xx',
+                'nameEn' => 'xx',
+                'parentID' => 2],
+                
             ]);
-          }
+        
 
     }
 }
