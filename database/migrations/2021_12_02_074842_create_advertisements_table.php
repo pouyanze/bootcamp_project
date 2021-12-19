@@ -21,8 +21,10 @@ class CreateAdvertisementsTable extends Migration
             $table->integer('price');
             $table->longText('address');
             $table->integer('phoneNumber');
-            $table->foreignId('userID')->constrained('users');;
-            $table->foreignId('categoryID')->constrained('categories');
+            $table->foreignId('userID')->constrained('users')->onUpdate('cascade')
+            ->onDelete('cascade');
+            $table->foreignId('categoryID')->constrained('categories')->onUpdate('cascade')
+            ->onDelete('cascade');
         });
     }
 
