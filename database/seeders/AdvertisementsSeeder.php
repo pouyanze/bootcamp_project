@@ -21,20 +21,35 @@ class AdvertisementsSeeder extends Seeder
     public function run()
 
     {
-        $userrrIDDD = DB::table('users')->pluck('id')->toArray();
-        $category_IDDD = DB::table('categories')->pluck('id')->toArray();
-
-        for ($x = 1; $x <= 3; $x++) {
+        
         DB::table('advertisements')->insert([
-            'id' => $x,
-            'title' => 'عنوان آگهی: '.Str::random(2),
-            'description' => 'توضیحات آگهی: '.Str::random(10),
-            'price' => random_int(1000,9999),
-            'address' => 'شهر ، ایران :کشور: ' . Str::random(5),
-            'phoneNumber' => random_int(9151111,9159999),
-            'userID' => array_pop($userrrIDDD),
-            'categoryID' => array_pop($category_IDDD),
+            ['id' => 1,
+            'title' => 'a',
+            'description' => 'a',
+            'price' => 1,
+            'address' => 'a',
+            'phoneNumber' => 1,
+            'userID' => 1,
+            'categoryID' => 1],
+
+            ['id' => 2,
+            'title' => 'b',
+            'description' => 'b',
+            'price' => 2,
+            'address' => 'b',
+            'phoneNumber' => 2,
+            'userID' => 1,
+            'categoryID' => 1],
+
+            ['id' => 3,
+            'title' => 'c',
+            'description' => 'c',
+            'price' => 3,
+            'address' => 'c',
+            'phoneNumber' => 3,
+            'userID' => 2,
+            'categoryID' => 2],
         ]);
-        }
+        
     }
 }
