@@ -18,8 +18,10 @@ class CreateCommentsTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->longText('description');
-            $table->foreignId('userID')->constrained('users');
-            $table->foreignId('adID')->constrained('advertisements');
+            $table->foreignId('userID')->constrained('users')->onUpdate('cascade')
+            ->onDelete('cascade');
+            $table->foreignId('adID')->constrained('advertisements')->onUpdate('cascade')
+            ->onDelete('cascade');
         });
     }
 
