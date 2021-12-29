@@ -27,6 +27,13 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Event::listen(
+            UserLoginEvent::class,
+            [LogUser::class, 'handle']
+        );
+    
+        Event::listen(function (UserLoginEvent $event) {
+            //
+        });
     }
 }
