@@ -39,6 +39,8 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
+                    @auth @if((Auth::user()->is_admin)=='yes') <a class="rounded p-2 m-0 font-weight-bold page-link justify-content-center border text-danger bg-dark h6" href="{{$url = route('adminHome')}}">پنل مدیریت</a> @endif @endauth
+
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <!-- Left Side Of Navbar -->
                         <ul class="navbar-nav me-auto">
@@ -62,20 +64,22 @@
                             @endif
                             @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right " aria-labelledby="navbarDropdown">
-                                    <a href="{{ route('list') }}">آگهی های من</a>
-                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                <!-- Default dropleft button -->
+                                <div class="btn-group dropleft">
+                                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        {{ Auth::user()->name }}
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <!-- Dropdown menu links -->
+                                        <a class="dropdown-item" href="{{ route('list') }}">آگهی های من</a>
+                                        <a class="dropdown-item p-2 m-0" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('خروج') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
+                                            {{ __('خروج') }}
+                                        </a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    </div>
                                 </div>
                             </li>
                             @endguest
@@ -84,23 +88,40 @@
                 </div>
             </nav>
         </div>
-        <div class=" d-flex p-2 flex-row-reverse">
+        <div class="d-flex p-2 flex-row-reverse">
 
-            <div class=" btn-group dropleft p-2 sticky-top h-25">
-                <button type="button" class="mt-5  btn btn-success dropdown-toggle sticky-top" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    دسته بندی
-                </button>
-                <div class="dropdown-menu ">
-                    @foreach ($Categories as $Category)
-                    <form action="/{{$Category->id}}/listCategorized" method="post">
-                        @csrf
-                        <input class="dropdown-item form-control" type="submit" value="{{$Category->name}}"></input>
-                    </form>
-                    @endforeach
+            <div class="btn-group dropleft p-2 sticky-top h-25 d-flex flex-column ml-auto mx-auto justify-content-center">
+
+                <div class="p-2">
+                    @auth
+                    <div class=" btn-group dropleft p-2 sticky-top h-25">
+                        <button class="mt-5  btn">
+                            <a href="{{$url = route('favourites')}}" class="rounded navbar-brand bg-dark text-white p-2 m-0">
+                                مورد علاقه ها
+                            </a>
+                        </button>
+                    </div>
+                    @endauth
                 </div>
+
+                <div class="p-2 ">
+                    <button type="button" class="mt-1  btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-flip="false">
+                        دسته بندی
+                    </button>
+                    <div class="dropdown-menu ">
+                        @foreach ($Categories as $Category)
+                        <form action="/{{$Category->id}}/AdsByOneCategory" method="get">
+                            @csrf
+                            <input class="dropdown-item form-control" type="submit" value="{{$Category->name}}"></input>
+                        </form>
+                        @endforeach
+                    </div>
+                </div>
+
             </div>
 
-            <div class="ml-auto p-1 mx-auto w-100 p-3">
+
+            <div class="ml-auto mx-auto w-100 p-2">
                 <main class="py-4">
                     @yield('content')
                 </main>
