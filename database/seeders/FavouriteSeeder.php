@@ -34,13 +34,43 @@ class FavouriteSeeder extends Seeder
 
                 ['id' => 3,
                 'favourite' => 'yes',
-                'user_id' => 2,
+                'user_id' => 1,
                 'advertisement_id' => 3],
 
                 ['id' => 4,
+                'favourite' => 'no',
+                'user_id' => 1,
+                'advertisement_id' => 4],
+
+                ['id' => 5,
                 'favourite' => 'yes',
                 'user_id' => 2,
                 'advertisement_id' => 1],
+
+                ['id' => 6,
+                'favourite' => 'yes',
+                'user_id' => 2,
+                'advertisement_id' => 4],
+
+                ['id' => 7,
+                'favourite' => 'yes',
+                'user_id' => 3,
+                'advertisement_id' =>5],
+
+                ['id' => 8,
+                'favourite' => 'yes',
+                'user_id' => 4,
+                'advertisement_id' => 1],
+
+                ['id' => 9,
+                'favourite' => 'yes',
+                'user_id' => 5,
+                'advertisement_id' => 2],
+
+                ['id' => 10,
+                'favourite' => 'yes',
+                'user_id' => 5,
+                'advertisement_id' => 4],
             ]);
 
     }
