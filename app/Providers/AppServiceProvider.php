@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Providers;
+
+use Illuminate\Pagination\Paginator;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -34,9 +36,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer(['layouts.app','/home'], function($view)
+        View::composer(['layouts.app','/home', 'admin.adminDashboard'], function($view)
         {
             $view->with('Categories', Category::orderBy('name')->get());
         });
+
+        Paginator::useBootstrap();
     }
 }
