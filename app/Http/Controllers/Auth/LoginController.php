@@ -7,7 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Log;
 class LoginController extends Controller
 {
     /*
@@ -24,9 +24,19 @@ class LoginController extends Controller
     use AuthenticatesUsers;
     protected function authenticated(Request $request, $user)
     {
-        if ( $user=Auth::user() ) {
-            return redirect('/ads/list');
+        // Log::info("sss");
+        // dd('dd');
+        if((Auth::user()->is_admin)=='yes'){
+            Log::info('someone loged in. WHO? an admin with id: '. Auth::user()->id);
+            return redirect('/admin/home');
+           
         }
+        elseif ( ($user=Auth::user()) and ((Auth::user()->is_admin)=='no')) {
+            Log::info('someone loged in. WHO? a user with id: '. Auth::user()->id);
+            return redirect('/ads/userAdsList');
+        }
+        
+        Log::info('loged in. WHO? user with id: '. Auth::user()->id);
         return redirect('/home');
     }
 
