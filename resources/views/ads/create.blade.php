@@ -43,7 +43,6 @@
         {{$item}}
         @endforeach
     </ol>
-    @endif
-
-
-    @endsection
+</div>
+@endif
+@endsection
