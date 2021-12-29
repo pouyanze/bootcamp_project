@@ -24,10 +24,10 @@ class AdvertisementsController extends Controller
      */
 
     
-
+// -----------------------------------------------------------------------------------
     public function AllAds()
     {
-        $ads = Advertisement::all();
+        $ads = Advertisement::paginate(3);
         $comments = Comment::all();
         $favourites = Favourite::all();
         // $cats= Category::where('id', Advertisement::find('categoryID'))->get();
@@ -39,7 +39,7 @@ class AdvertisementsController extends Controller
         // ->with('cats', $cats);
     }
 
-    public function AllAdsCategorized($id)
+    public function AdsByOneCategory($id)
     {
         // dd("sss");
         $adsCategorized = Advertisement::where('categoryID', $id)->get(); 
@@ -55,10 +55,9 @@ class AdvertisementsController extends Controller
             ->with('comments', $commentsCategorized)
             ->with('Categories', $catsCategorized);
     }
-    
-    public function list()
+    // --------------------------------------ads of user--------------------------------------
+    public function userAdsList()
     {
-       
         $ads = Advertisement::where('userID', Auth::user()->id)->get();
         $idsOfads=DB::table('advertisements')->where('userID', Auth::user()->id)->pluck('id')->toArray();
         $categoryIDofAds=DB::table('advertisements')->where('userID', Auth::user()->id)->pluck('categoryID')->toArray();
@@ -69,7 +68,7 @@ class AdvertisementsController extends Controller
         // dd($comments);
         $cats = Category::whereIn('id',$categoryIDofAds)->get();
         $favourites = Favourite::all();
-        return view('ads/list')
+        return view('ads/userAdsList')
             ->with('ads', $ads)
             ->with('comments', $comments)
             ->with('favourites', $favourites)
@@ -77,17 +76,16 @@ class AdvertisementsController extends Controller
     }
 
     
-    public function categorizedList($id)
+    public function UserAdsByOneCategory($id)
     {
-        dd("ss");
-        $adsCategorized = Advertisement::where('categoryID', $id)->get();     
-        $idsOfAdsCategorized = Advertisement::where('categoryID', $id)->pluck('id')->toArray();
+        $adsCategorized = Advertisement::where('categoryID', $id)->where('userID', Auth::user()->id)->get();     
+        $idsOfAdsCategorized = Advertisement::where('categoryID', $id)->where('userID', Auth::user()->id)->pluck('id')->toArray();
         // dd($ads);
         $commentsCategorized = Comment::whereIn('adID',$idsOfAdsCategorized)->get();
         $catsCategorized = Category::where('id',$id)->get();
-        $favourites = Favourite::all();
+        $favourites = Favourite::whereIn('advertisement_id',$idsOfAdsCategorized)->get();
         // dd($commentsCategorized);
-        return view('ads/categorizedList')
+        return view('ads/UserAdsByOneCategory')
             ->with('ads', $adsCategorized)
             ->with('comments', $commentsCategorized)
             ->with('favourites', $favourites)
@@ -126,9 +124,9 @@ class AdvertisementsController extends Controller
         ]);
 
 
-        Log::info('saving an ad for user: '. Auth::user()->id);
+        Log::info('saving an ad for user with id: '. Auth::user()->id);
 
-        return redirect('ads/list');
+        return redirect('ads/userAdsList');
     }
 
     /**
@@ -150,6 +148,7 @@ class AdvertisementsController extends Controller
      */
     public function edit(Request $request, $id)
     {
+        // dd("ss");
         $ad = Advertisement::where('id', $id)->update([
             'title' => $request->input('newAdTitle'),
             'description' => $request->input('newAdDescription'),
@@ -157,7 +156,8 @@ class AdvertisementsController extends Controller
             'address' => $request->input('newAdAddress'),
             'phoneNumber' => $request->input('newAdPhoneNumber'),
         ]);
-        return redirect('ads/list');
+        // return redirect('ads/userAdsList');
+        return back()->withInput();
     }
 
     /**
@@ -181,6 +181,23 @@ class AdvertisementsController extends Controller
     public function destroy($id)
     {
         $ad = Advertisement::where('id', $id)->delete();
-        return redirect('ads/list');
+        return redirect('ads/userAdsList');
     }
+
+    public function favourites()
+    {
+        $id= Auth::user()->id;
+        // dd($id);
+        $adIdsOfFavs = Favourite::where('user_id', $id)->pluck('advertisement_id')->toArray();
+        $ads = Advertisement::whereIn('id', $adIdsOfFavs)->get();
+        $categoryIdsOfads = Advertisement::whereIn('id', $adIdsOfFavs)->pluck('categoryID')->toArray();
+        $cats = Category::whereIn('id',$categoryIdsOfads)->get();
+        $favourites = Favourite::all();
+
+        return view('ads/favourites')
+            ->with('ads', $ads)
+            ->with('favourites', $favourites)
+            ->with('cats', $cats);
+    }
+    
 }
