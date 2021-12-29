@@ -43,7 +43,7 @@
                                 <td>
                                     @foreach ($Categories as $Category)
                                     @if(($Category->id)===($ad->categoryID))
-                                    <form action="/{{$Category->id}}/listCategorized" method="post">
+                                    <form action="{{$Category->id}}/AdsByOneCategory" method="get">
                                         @csrf
                                         <input type="submit" class="form-control" value="{{$Category->name}}"></input>
                                     </form>
@@ -70,83 +70,6 @@
                                     <img src="images/heartE.ico" alt="empty heart">
                                     @endif
                                     @endforeach
-                                    <!-- <div>
-                                    @foreach ($favourites as $favourite)
-                                    @if(($favourite->user_id)==(Auth::user()->id) and (($favourite->advertisement_id)==($ad->id)))
-                                        <form action="/favourites/{{$favourite->id}}/edit" method="post">
-                                            @csrf
-                                            @if (($favourite->favourite)=='yes')
-                                            <input id="yes" type="radio" name="favourite" value="yes" checked="checked">
-                                            <label for="yes">بله</label>
-                                            <input id="no" type="radio" name="favourite" value="no">
-                                            <label for="no">خیر</label>
-                                            <input id="newFav" type="hidden" name="userID" value="{{Auth::user()->id}}">
-                                            <input id="newFav" type="hidden" name="adID" value="{{$ad->id}}">
-                                            <input type="submit" value="ارسال">
-                                            @elseif (($favourite->favourite)=='no')
-                                            <input id="yes" type="radio" name="favourite" value="yes">
-                                            <label for="yes">بله</label>
-                                            <input id="no" type="radio" name="favourite" value="no" checked="checked">
-                                            <label for="no">خیر</label>
-                                            <input id="newFav" type="hidden" name="userID" value="{{Auth::user()->id}}">
-                                            <input id="newFav" type="hidden" name="adID" value="{{$ad->id}}">
-                                            <input type="submit" value="ارسال">
-                                            @endif
-                                        </form>
-                                    @else
-                                    <input id="yes" type="radio" name="favourite" value="yes">
-                                            <label for="yes">بله</label>
-                                            <input id="no" type="radio" name="favourite" value="no">
-                                            <label for="no">خیر</label>
-                                            <input id="newFav" type="hidden" name="userID" value="{{Auth::user()->id}}">
-                                            <input id="newFav" type="hidden" name="adID" value="{{$ad->id}}">
-                                            <input type="submit" value="ارسال">
-                                    @endif
-                                    @endforeach
-                                    </div> -->
-                                    <!-- <div>
-                                        @foreach ($favourites as $favourite)
-                                        @if ((($favourite->advertisement_id)==($ad->id)) and (($favourite->user_id)==(Auth::user()->id)) and (($favourite->favourite)=='yes'))
-                                        <form action="/favourites/{{$favourite->id}}/edit" method="post">
-                                            @csrf
-                                            <input id="yes" type="radio" name="favourite" value="yes" checked="checked">
-                                            <label for="yes">بله</label>
-                                            <input id="no" type="radio" name="favourite" value="no">
-                                            <label for="no">خیر</label>
-                                            <input id="newFav" type="hidden" name="userID" value="{{Auth::user()->id}}">
-                                            <input id="newFav" type="hidden" name="adID" value="{{$ad->id}}">
-
-                                            <input type="submit" value="ارسال">
-                                        </form>
-
-                                        @elseif ((($favourite->advertisement_id)==($ad->id)) and (($favourite->user_id)==(Auth::user()->id)) and (($favourite->favourite)=='no'))
-                                        <form action="/favourites/{{$favourite->id}}/edit" method="post">
-                                            @csrf
-                                            <input id="yes" type="radio" name="favourite" value="yes">
-                                            <label for="yes">بله</label>
-                                            <input id="no" type="radio" name="favourite" value="no" checked="checked">
-                                            <label for="no">خیر</label>
-                                            <input id="newFav" type="hidden" name="userID" value="{{Auth::user()->id}}">
-                                            <input id="newFav" type="hidden" name="adID" value="{{$ad->id}}">
-
-                                            <input type="submit" value="ارسال">
-                                        </form>
-
-                                        @elseif (($favourite->advertisement_id)!== null)
-                                        <form action="/favourites/{{$favourite->id}}/edit" method="post">
-                                            @csrf
-                                            <input id="yes" type="radio" name="favourite" value="yes">
-                                            <label for="yes">بله</label>
-                                            <input id="no" type="radio" name="favourite" value="no">
-                                            <label for="no">خیر</label>
-                                            <input id="newFav" type="hidden" name="userID" value="{{Auth::user()->id}}">
-                                            <input id="newFav" type="hidden" name="adID" value="{{$ad->id}}">
-
-                                            <input type="submit" value="ارسال">
-                                        </form>
-                                        @endif
-                                        @endforeach
-                                    </div> -->
                                 </td>
                                 @endauth
 
@@ -159,7 +82,7 @@
                             نظرات
                         </button>
                         <div class=" dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <table class=" dropdown-item table table-striped table-dark table-bordered table-hover">
+                            <table class="  table table-striped table-dark table-bordered table-hover">
                                 @guest
                                 @foreach ($comments->sortBy('userID') as $comment)
                                 @if (($comment->adID)==($ad->id))
@@ -218,7 +141,7 @@
                                 </tr>
                                 @endif
                                 @endforeach
-                                <table class="dropdown-item table table-striped table-dark table-bordered table-hover table-info ">
+                                <table class=" table table-striped table-dark table-bordered table-hover table-info ">
                                     <td>
                                         <label class="font-weight-bold page-link justify-content-center border text-success bg-dark h5" for="newComment">نظر جدید</label>
                                         <form action="/comments/store2" method="post">
@@ -247,4 +170,9 @@
 </div>
 </div>
 
+
+{{-- Pagination --}}
+<div class="pagination justify-content-center page-item fixed-bottom bg-success text-white w-25 my-auto align-items-center mx-auto rounded col-md-3point5 p-0 m-0">
+    {!! $ads->links() !!}
+</div>
 @endsection
